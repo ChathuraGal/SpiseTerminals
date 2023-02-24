@@ -1,0 +1,26 @@
+WindowManager:
+<WindowManager>:
+    WelcomeScreen:
+        id: welcomescreen
+    MainScreen:
+        id: mainscreen
+
+<WelcomeScreen>:
+    name: 'welcomescreen'
+    MDRaisedButton:
+        text: 'Connect'
+        on_press: root.initiate()
+<MainScreen>:
+    name: 'mainscreen'
+    BoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            id: label
+        MDRaisedButton:
+            text: 'Listen'
+            on_release: root.listen()
+        MDRaisedButton:
+            text: 'Send'
+            on_release: root.send()
+        MDTextField:
+            id: msg
