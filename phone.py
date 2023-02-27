@@ -16,8 +16,8 @@ recv_cond = False
 send_msg = ''
 recv_msg = ''
 
-#TERMINAL_IP = '192.168.1.134'
-TERMINAL_IP = socket.gethostbyname(socket.gethostname())
+TERMINAL_IP = '192.168.1.134' # you may hardcode it here
+#TERMINAL_IP = socket.gethostbyname(socket.gethostname())
 PORT_NUMBER = 5005
 SIZE = 1024
 
@@ -29,13 +29,15 @@ def sender():
             while send_cond:
                 send_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 send_socket.connect((TERMINAL_IP, PORT_NUMBER))
-                print('connect')
+                print('connected')
                 while True:
                     if send_msg != '':
                         send_socket.send(bytes(send_msg, 'utf-8'))
+                        print(f'sending message: {send_msg}')
                         send_msg = ''
         except:
             time.sleep(0.5)
+            print('trying to connect...')
 
 
 thread_1 = threading.Thread(target=sender)
@@ -55,9 +57,10 @@ def receiver():
                 while True:
                     raw_msg = listen_socket.recv(1024)
                     recv_msg = raw_msg.decode('utf-8')
+                    print(f'receiving messaged: {recv_msg}')
         except:
             time.sleep(0.5)
-            print('binding...')
+            print('trying to bind...')
 
 
 thread_2 = threading.Thread(target=receiver)

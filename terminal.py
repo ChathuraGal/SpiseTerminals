@@ -27,10 +27,11 @@ def sender():
             while send_cond:
                 send_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 send_socket.connect((PHONE_IP, PORT_NUMBER))
-                print('connect')
+                print('connected')
                 while True:
                     if send_msg != '':
                         send_socket.send(bytes(send_msg, 'utf-8'))
+                        print(f'sending message: {send_msg}')
                         send_msg = ''
         except:
             time.sleep(0.5)
@@ -53,9 +54,10 @@ def receiver():
                 while True:
                     raw_msg = listen_socket.recv(1024)
                     recv_msg = raw_msg.decode('utf-8')
+                    print(f'received messaged: {recv_msg}')
         except:
             time.sleep(0.5)
-            print('binding...')
+            print('trying to bind...')
 
 
 thread_2 = threading.Thread(target=receiver)
